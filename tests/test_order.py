@@ -6,6 +6,14 @@ def test_vip_discount():
     assert o.confirm() == 85
     assert o.status == "CONFIRMED"
 
+def test_regular_no_discount():
+    assert Order(100).confirm() == 100
+
+def test_customer_debt():
+    with pytest.raises(CustomerHasDebt):
+        Order(100).confirm(customer_debt=50)
+
+## nuevas pruebas
 def test_vip_discount_200(): 
     o = Order(200, vip=True)
     assert o.confirm() == 170
@@ -14,13 +22,6 @@ def test_vip_discount_200():
 def test_regular(): 
     o = Order(200)
     assert o.confirm() == 200
-
-def test_regular_no_discount():
-    assert Order(100).confirm() == 100
-
-def test_customer_debt():
-    with pytest.raises(CustomerHasDebt):
-        Order(100).confirm(customer_debt=50)
 
 @pytest.mark.parametrize("total", [0, -1])
 def test_invalid_total(total):
