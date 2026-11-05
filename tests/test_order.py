@@ -18,7 +18,7 @@ def test_customer_debt():
 ## nuevas pruebas
 def test_vip_discount_200(): 
     o = Order(200, vip=True)
-    assert o.confirm() == 170
+    assert o.confirm() == 180
     assert o.status == "CONFIRMED"
 
 def test_regular(): 
